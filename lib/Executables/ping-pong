@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require_relative '../Epicodus_Week_1.rb'
+
+include EpicodusWeek1
+
+puts pingPong(ARGV[0].to_i)
