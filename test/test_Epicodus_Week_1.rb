@@ -35,4 +35,15 @@ class TestEpicodusWeek1 < Minitest::Test
     assert_equal 180, "6:00".clock_angle
     assert_equal 127.5, "7:15".clock_angle
   end
+  
+  # Tuesday
+  def test_scrabble
+    assert_equal 1, "a".scrabble
+    assert_equal 14, "scrabble".scrabble
+  end
+
+  def test_numbers_to_words
+    assert_equal "one hundred twenty three million, four hundred fifty six thousand, seven hundred eighty nine", 123456789.to_words
+    assert_equal "one thousand, two hundred thirty four", 1234.to_words
+  end
 end
