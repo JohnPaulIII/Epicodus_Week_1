@@ -25,7 +25,6 @@ module EpicodusWeek1
     end
   end
 
-
 end
 
 module TitleCase
@@ -57,12 +56,149 @@ module ClockAngle
   end
 end
 
+module MyConstants
+  
+  
+end
+
+module Scrabble
+  SCORES = {
+    "a" => 1,
+    "b" => 3,
+    "c" => 3,
+    "d" => 2,
+    "e" => 1,
+    "f" => 4,
+    "g" => 2,
+    "h" => 4,
+    "i" => 1,
+    "j" => 8,
+    "k" => 5,
+    "l" => 1,
+    "m" => 3,
+    "n" => 1,
+    "o" => 1,
+    "p" => 3,
+    "q" => 10,
+    "r" => 1,
+    "s" => 1,
+    "t" => 1,
+    "u" => 1,
+    "v" => 4,
+    "w" => 4,
+    "x" => 8,
+    "y" => 4,
+    "z" => 10,
+  }
+  def scrabble
+    split("").reduce(0) { |total, c| total + SCORES[c]}
+  end
+end
+
+module NumbersToWords
+  def to_words
+    list = to_s.reverse.scan(/.{1,3}/).reverse
+    i = list.length
+    words = list.reduce([]) do |word_list, num|
+      num.reverse!
+      if num.length < 3
+        if num.length < 2
+          word_list.ones(num)
+        else
+          word_list.tens(num)
+        end
+      else
+        word_list.hundreds(num[0])
+        word_list.tens(num[1..2])
+      end
+      if num != "000" && i > 1
+        word_list.suffix(i)
+        i -= 1
+      end
+      word_list
+    end
+    words.join(" ").rstrip.chomp(',')
+  end
+
+end
+
+module NumbersToWordsArrayExtension
+  ONES = {
+    "1" => "one",
+    "2" => "two",
+    "3" => "three",
+    "4" => "four",
+    "5" => "five",
+    "6" => "six",
+    "7" => "seven",
+    "8" => "eight",
+    "9" => "nine"
+  }
+  TENS = {
+    "2" => "twenty",
+    "3" => "thirty",
+    "4" => "forty",
+    "5" => "fifty",
+    "6" => "sixty",
+    "7" => "seventy",
+    "8" => "eighty",
+    "9" => "ninety"
+  }
+  TEENS = {
+    "10" => "ten",
+    "11" => "eleven",
+    "12" => "twelve",
+    "13" => "thirteen",
+    "14" => "fourteen",
+    "15" => "fifteen",
+    "16" => "sixteen",
+    "17" => "seventeen",
+    "18" => "eighteen",
+    "19" => "nineteen",
+  }
+  SUFFIX = {
+    2 => "thousand,",
+    3 => "million,",
+    4 => "billion",
+    5 => "trillion",
+  }
+
+  def hundreds(num)
+    push(ONES[num[0]] + " hundred") if num[0] != "0"
+  end
+
+  def tens(num)
+    if !["0", "1"].include?(num[0])
+      push(TENS[num[0]])
+      ones(num[1])
+    elsif num[0] == "1"
+      push(TEENS[num])
+    end
+  end
+
+  def ones(num)
+    if num != "0"
+      push(ONES[num])
+    end
+  end
+
+  def suffix(num)
+    SUFFIX[num] ? push(SUFFIX[num]) : push("gazilion,")
+  end
+end
+
 class String
   include TitleCase
   include LeetSpeak
   include ClockAngle
+  include Scrabble
 end
 
 class Array
   include QueenAttack
+  include NumbersToWordsArrayExtension
+end
+
+class Integer
+  include NumbersToWords
 end
