@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require_relative '../Epicodus_Week_1.rb'
+
+game = RPS.new()
+puts game.wins?(ARGV[0], ARGV[1])

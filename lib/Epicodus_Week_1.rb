@@ -119,7 +119,6 @@ module NumbersToWords
     end
     words.join(" ").rstrip.chomp(',')
   end
-
 end
 
 module NumbersToWordsArrayExtension
@@ -187,11 +186,46 @@ module NumbersToWordsArrayExtension
   end
 end
 
+class RPS
+
+  MOVES = {
+    "rock" => "scissors",
+    "paper" => "rock",
+    "scissors" => "paper"
+  }
+
+  def wins?(mine, theirs)
+    MOVES[format_action(mine)] == format_action(theirs)
+  end
+
+  def format_action(str)
+    return str.downcase.gsub(/[^a-zA-Z]/, '')
+  end
+
+end
+
+module FindAndReplace
+  def find_and_replace(find, replace)
+    gsub(Regexp.new("(\\A|\\W)#{find}(\\W|\\z)"), "\\1#{replace}\\2")
+  end
+end
+
+module Palindrome
+  def palindrome?
+    test = true
+    str = to_s.downcase.scan(/[a-z0-9]/i)
+    str.each_with_index { |c, i| test = test && c == str[-i-1]}
+    test
+  end
+end
+
 class String
   include TitleCase
   include LeetSpeak
   include ClockAngle
   include Scrabble
+  include FindAndReplace
+  include Palindrome
 end
 
 class Array
@@ -201,4 +235,5 @@ end
 
 class Integer
   include NumbersToWords
+  include Palindrome
 end

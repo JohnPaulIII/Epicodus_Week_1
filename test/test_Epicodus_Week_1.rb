@@ -46,4 +46,25 @@ class TestEpicodusWeek1 < Minitest::Test
     assert_equal "one hundred twenty three million, four hundred fifty six thousand, seven hundred eighty nine", 123456789.to_words
     assert_equal "one thousand, two hundred thirty four", 1234.to_words
   end
+
+  # Wednesday
+  def test_rock_paper_scissors
+    game = RPS.new()
+    assert game.wins?("Rock", "scissors")
+    refute game.wins?("scissors", "scissors")
+    refute game.wins?("rock", "PaPer")
+  end
+  
+  def test_find_and_replace
+    assert_equal "Hello universe", "Hello world".find_and_replace("world", "universe")
+    assert_equal "I am walking my dog to the cathedral", "I am walking my cat to the cathedral".find_and_replace("cat", "dog")
+  end
+
+  def test_palindrome
+    assert "Racecar".palindrome?
+    refute "Butterfly".palindrome?
+    assert 12321.palindrome?
+    assert "A man, a plan, a canal—Panama!".palindrome?
+  end
+
 end
