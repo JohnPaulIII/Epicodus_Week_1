@@ -35,7 +35,7 @@ end
 
 module LeetSpeak
   def leetspeak
-    gsub('e', '3').gsub('o', '0').gsub('I', '1').gsub(/(\S{1})(s)/,'\1z').gsub(/(\S{1})(s)/,'\1z')
+    gsub(/e/i, '3').gsub(/o/i, '0').gsub('I', '1').gsub(/(\S{1})(s)/,'\1z').gsub(/(\S{1})(s)/,'\1z')
   end
 end
 
@@ -91,7 +91,7 @@ module Scrabble
     "z" => 10,
   }
   def scrabble
-    split("").reduce(0) { |total, c| total + SCORES[c]}
+    downcase.split("").reduce(0) { |total, c| SCORES[c] ? total + SCORES[c] : total}
   end
 end
 
