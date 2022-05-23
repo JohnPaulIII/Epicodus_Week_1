@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative '../Epicodus_Week_1.rb'
+
+puts ARGV[0].to_i.prime_sift

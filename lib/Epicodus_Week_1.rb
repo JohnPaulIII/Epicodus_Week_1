@@ -219,6 +219,61 @@ module Palindrome
   end
 end
 
+module CoinCombinations
+  COINS = {
+    25 => ["quarters", "quarter"],
+    10 => ["dimes", "dime"],
+    5 => ["nickels", "nickel"],
+    1 => ["pennies", "penny"]
+  }
+  def make_change
+    temp = self
+    text = +""
+    COINS.each do |value, coin|
+      count = temp/value
+      if count > 0
+        temp -= count*value
+        text << "#{count} #{coin[count > 1 ? 0 : 1]}, "
+      end
+    end
+    text.chomp(", ")
+  end
+end
+
+module PrimeSift
+  def prime_sift
+    table = (2..self).to_a
+    (2..floor(Math.sqrt(self))).each do |i|
+      n = i * 2
+      while n <= self
+        table.delete(n)
+        n += i
+      end
+    end
+    table
+  end
+end
+
+module Allergies
+  ALLERGENS = [
+    "eggs",
+    "peanuts",
+    "shellfish",
+    "strawberries",
+    "tomatoes",
+    "chocolate",
+    "pollen",
+    "cats",
+  ]
+  def list_allergens
+    selection = to_i.to_s(2).split('').reverse
+    (0..selection.length - 1).reduce([]) do |result, i|
+      result << ALLERGENS[i] if selection[i] == "1"
+      result
+    end
+  end
+end
+
 class String
   include TitleCase
   include LeetSpeak
@@ -236,4 +291,7 @@ end
 class Integer
   include NumbersToWords
   include Palindrome
+  include CoinCombinations
+  include PrimeSift
+  include Allergies
 end

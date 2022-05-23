@@ -67,4 +67,19 @@ class TestEpicodusWeek1 < Minitest::Test
     assert "A man, a plan, a canal—Panama!".palindrome?
   end
 
+  # Thursday
+  def test_coin_combinations
+    assert_equal "5 quarters, 1 nickel, 4 pennies", 134.make_change
+    assert_equal "10 quarters, 2 dimes, 3 pennies", 273.make_change
+  end
+
+  def test_prime_sift
+    assert_equal [2, 3, 5, 7, 11], 11.prime_sift
+    assert_equal [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97], 100.prime_sift
+  end
+
+  def test_allergies
+    assert_equal ["eggs", "peanuts", "shellfish"], 7.list_allergens
+    assert_equal ["eggs", "shellfish", "cats"], 133.list_allergens
+  end
 end
